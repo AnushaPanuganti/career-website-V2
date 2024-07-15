@@ -1,0 +1,2 @@
+Flask
+gunicorn   #(to deploy in production as flask can only be used for dev)
