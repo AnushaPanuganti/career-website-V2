@@ -27,4 +27,13 @@ def load_jobs_from_db():
     for row in result:
       jobs.append(dict(row._mapping))
     return jobs
+
+def load_job_from_db(id):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"select * from jobs where id = {id}")).fetchall()
+##if there are no rows in the table,for suppose if id is not present in the table,then table does not return any row,so len(result) will be 0,if we give id which is present in the table,then len(result) will be 1,so it return 1st row which is the only row in the table,so we can use this condition to check if result is empty or not.
+    if len(result) == 0:
+      return None
+    else:
+      return dict(result[0]._mapping)
   
