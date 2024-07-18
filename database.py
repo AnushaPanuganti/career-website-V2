@@ -36,4 +36,10 @@ def load_job_from_db(id):
       return None
     else:
       return dict(result[0]._mapping)
-  
+
+
+def add_application_to_db(job_id,data):
+  with engine.connect() as conn:
+    conn.execute(text("INSERT INTO applications (full_name,job_id,email,linkedin_url,education,work_experience,resume_url) VALUES (:full_name,:job_id,:email,:linkedin_url,:education,:work_experience,:resume_url)"),
+                 [{"full_name":data['full_name'],"job_id":job_id,"email":data['email'],"linkedin_url":data['linkedin_url'],"education":data['education'],"work_experience":data['work_experience'],"resume_url":data['Resume_url']}])
+    conn.commit()
